@@ -26,7 +26,6 @@ O projeto está sendo desenvolvido com as seguintes tecnologias e ferramentas:
 - 🎮 **Unity** – Motor de jogo principal  
 - 🎨 **Figma** – Protótipos e design de interface  
 - 🔊 **Audacity** – Edição de efeitos sonoros  
-- 🧊 **Blender** – Criação e edição de modelos 3D simples
 
 ---
 
