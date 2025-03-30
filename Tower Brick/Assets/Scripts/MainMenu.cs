@@ -4,15 +4,19 @@ using UnityEngine.SceneManagement;
 public class MainMenu : MonoBehaviour
 {
     public void PlayGame(){
-        SceneManager.LoadSceneAsync("GameScene");
+        SceneLoader.LoadScene("GameScene");
     }
 
     public void Options(){
-        SceneManager.LoadSceneAsync("Options");
+        SceneLoader.LoadScene("Options");
+    }
+
+    public void ToDoWarning(){
+        SceneLoader.LoadScene("ToDoWarning");
     }
 
     public void Back(){
-        SceneManager.LoadSceneAsync("Main Menu");
+        SceneLoader.LoadLastScene();
     }
 
     public void QuitGame(){

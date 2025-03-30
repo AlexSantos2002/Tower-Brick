@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Options.unity
     guid: 23aac245e61b64843a41f67bcebfd892
   - enabled: 1
+    path: Assets/Scenes/ToDoWarning.unity
+    guid: de7834b10773dae46bfb2dbc118f6f0c
+  - enabled: 1
     path: Assets/Scenes/GameScene.unity
     guid: f39d8aa01b0080b4d9972950d7c79f92
   - enabled: 1
