@@ -7,6 +7,14 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadSceneAsync("GameScene");
     }
 
+    public void Options(){
+        SceneManager.LoadSceneAsync("Options");
+    }
+
+    public void Back(){
+        SceneManager.LoadSceneAsync("Main Menu");
+    }
+
     public void QuitGame(){
         Application.Quit();
         Debug.Log("O jogo foi fechado.");
