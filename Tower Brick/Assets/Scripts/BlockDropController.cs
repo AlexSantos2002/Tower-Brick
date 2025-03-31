@@ -5,6 +5,7 @@ public class BlockDropController : MonoBehaviour
 {
     public float bottomLimitOffset = 0.5f;
     public LayerMask blockLayerMask;
+    public CraneSpawner spawner;
 
     private Rigidbody2D rb;
     private bool isDropped = false;
@@ -45,7 +46,7 @@ public class BlockDropController : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (((1 << collision.gameObject.layer) & blockLayerMask) != 0)
+        if (((1 << collision.gameObject.layer) & blockLayerMask) != 0 && !hasLanded)
         {
             hasLanded = true;
             rb.bodyType = RigidbodyType2D.Kinematic;
@@ -53,6 +54,11 @@ public class BlockDropController : MonoBehaviour
             rb.angularVelocity = 0f;
 
             Debug.Log("Bloco pousado com sucesso.");
+
+            if (spawner != null)
+            {
+                spawner.SpawnBlockOnCrane();
+            }
         }
     }
 }
