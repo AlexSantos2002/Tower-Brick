@@ -575,10 +575,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 822ddb7bcc2527048b85f61fb8247b68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  craneSprite: {fileID: 1317146011030700344, guid: e5e7f026073820341a443a668b69ac1a, type: 3}
+  craneSprite: {fileID: 661842920448392751, guid: c78a9432c0207704792cc3dbf312fee8, type: 3}
   sortingLayer: Foreground
   orderInLayer: 1
   craneHeightInUnits: 1.2
+  blockSprite: {fileID: -5830249567910500720, guid: c512f733cd9278c4d9fea47dff389342, type: 3}
+  blockHeightInUnits: 1.5
+  blockSortingLayer: Blocks
+  blockOrderInLayer: 0
+  verticalSpacing: 0.3
   amplitude: 3
   speed: 2
 --- !u!4 &1957888156
