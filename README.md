@@ -55,6 +55,7 @@ O projeto está sendo desenvolvido com as seguintes tecnologias e ferramentas:
 ### 🔨 Próximas Etapas
 
 #### 🎮 Mecânicas do Jogo:
+- [x] Imlpementar mecanicas **basicas** (movimento da grua, queda e colisão de blocos)
 - [ ] Implementar sistema de **pontuação dinâmica** com base na altura
 - [ ] Adicionar **dificuldade progressiva** (aceleração dos blocos, vento, etc.)
 - [ ] Detecção de **colisão imperfeita** (blocos mal colocados caem)
