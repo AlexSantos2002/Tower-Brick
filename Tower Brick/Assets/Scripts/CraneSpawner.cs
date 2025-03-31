@@ -44,6 +44,9 @@ public class CraneSpawner : MonoBehaviour
 
         // === BLOCO ===
         GameObject block = new GameObject("BlockOnCrane");
+
+        block.layer = LayerMask.NameToLayer("Blocks");
+
         SpriteRenderer blockSR = block.AddComponent<SpriteRenderer>();
         blockSR.sprite = blockSprite;
         blockSR.sortingLayerName = blockSortingLayer;
@@ -51,12 +54,17 @@ public class CraneSpawner : MonoBehaviour
         float blockOriginalHeight = blockSR.sprite.bounds.size.y;
         float blockScale = blockHeightInUnits / blockOriginalHeight;
         block.transform.localScale = new Vector3(blockScale, blockScale, 1f);
+
         float totalOffset = (craneSR.sprite.bounds.size.y * craneScale) / 2f +
                             (blockSR.sprite.bounds.size.y * blockScale) / 2f +
                             verticalSpacing - 0.4f;
 
         block.transform.position = crane.transform.position - new Vector3(0, totalOffset, 0);
         block.transform.parent = crane.transform;
+
+
+        block.AddComponent<BoxCollider2D>();
+        block.AddComponent<BlockDropController>();
     }
 
     void Update()

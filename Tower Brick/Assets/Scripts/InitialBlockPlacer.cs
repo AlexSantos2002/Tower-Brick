@@ -12,6 +12,8 @@ public class InitialBlockPlacer : MonoBehaviour
     void Start()
     {
         GameObject block = new GameObject("BaseBlock");
+        block.layer = LayerMask.NameToLayer("Blocks");
+
         SpriteRenderer sr = block.AddComponent<SpriteRenderer>();
         sr.sprite = blockSprite;
         sr.sortingLayerName = sortingLayer;
@@ -26,5 +28,7 @@ public class InitialBlockPlacer : MonoBehaviour
         float finalY = bottomY + (originalHeight * scale) / 2f;
 
         block.transform.position = new Vector3(0, finalY, 0);
+        BoxCollider2D collider = block.AddComponent<BoxCollider2D>();
+        collider.isTrigger = false;
     }
 }
