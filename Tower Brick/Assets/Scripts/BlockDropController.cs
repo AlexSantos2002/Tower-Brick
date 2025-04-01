@@ -3,6 +3,8 @@ using UnityEngine;
 [RequireComponent(typeof(Collider2D))]
 public class BlockDropController : MonoBehaviour
 {
+    public CameraManager cameraManager;
+
     public float bottomLimitOffset = 0.5f;
     public LayerMask blockLayerMask;
     public CraneSpawner spawner;
@@ -38,6 +40,8 @@ public class BlockDropController : MonoBehaviour
 
     void DropBlock()
     {
+        if (isDropped) return;
+
         isDropped = true;
         transform.parent = null;
         rb.bodyType = RigidbodyType2D.Dynamic;
@@ -50,10 +54,15 @@ public class BlockDropController : MonoBehaviour
         {
             hasLanded = true;
             rb.bodyType = RigidbodyType2D.Kinematic;
-            rb.velocity = Vector2.zero;
+            rb.linearVelocity = Vector2.zero;
             rb.angularVelocity = 0f;
 
             Debug.Log("Bloco pousado com sucesso.");
+
+            if (cameraManager != null)
+            {
+                cameraManager.RegisterBlock(gameObject);
+            }
 
             if (spawner != null)
             {

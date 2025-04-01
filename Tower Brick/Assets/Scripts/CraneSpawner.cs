@@ -44,6 +44,12 @@ public class CraneSpawner : MonoBehaviour
         startPos = crane.transform.position;
 
         SpawnBlockOnCrane();
+
+        CameraManager manager = Object.FindFirstObjectByType<CameraManager>();
+        if (manager != null)
+        {
+            manager.crane = crane.transform;
+        }
     }
 
     void Update()
@@ -83,6 +89,7 @@ public class CraneSpawner : MonoBehaviour
         BlockDropController dropController = block.AddComponent<BlockDropController>();
         dropController.blockLayerMask = LayerMask.GetMask("Blocks");
         dropController.spawner = this;
+        dropController.cameraManager = Object.FindFirstObjectByType<CameraManager>();
 
         currentBlock = block;
     }
@@ -92,5 +99,16 @@ public class CraneSpawner : MonoBehaviour
         float craneHeight = crane.GetComponent<SpriteRenderer>().bounds.size.y * crane.transform.localScale.y;
         float blockHeight = blockSprite.bounds.size.y * (blockHeightInUnits / blockSprite.bounds.size.y);
         return (craneHeight / 2f) + (blockHeight / 2f) + verticalSpacing - 0.4f;
+    }
+
+    public void MoveCraneVertically(float amount)
+    {
+        crane.transform.position += new Vector3(0, amount, 0);
+        startPos += new Vector3(0, amount, 0);
+    }
+
+    public void UpdateStartYSmooth(float newY)
+    {
+        startPos = new Vector3(startPos.x, newY, startPos.z);
     }
 }

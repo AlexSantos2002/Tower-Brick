@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1536
     height: 820.8
   m_ShowMode: 4
-  m_Title: Scene
+  m_Title: Game
   m_RootView: {fileID: 6}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -326,7 +326,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets
+    - Assets/Scripts
     m_Globs: []
     m_ProductIds: 
     m_AnyWithAssetOrigin: 0
@@ -336,15 +336,15 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets
+  - Assets/Scripts
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\alexa\Documents\GitHub\Tower-Brick\Tower Brick
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 64.400024}
-    m_SelectedIDs: faae0000
-    m_LastClickedID: 44794
+    m_SelectedIDs: d6b00000
+    m_LastClickedID: 45270
     m_ExpandedIDs: 00000000faae0000fcae0000feae000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -522,7 +522,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: aaf7ffff06fbffff
+      m_ExpandedIDs: e4e6ffffc4f5ffff0cfbffff4aae000056ae0000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -1126,9 +1126,9 @@ MonoBehaviour:
   m_AudioPlay: 0
   m_DebugDrawModesUseInteractiveLightBakingData: 0
   m_Position:
-    m_Target: {x: -0.776108, y: 1.2310821, z: 0.010656453}
+    m_Target: {x: 303.86847, y: 270.7251, z: -3.2627401}
     speed: 2
-    m_Value: {x: -0.7443017, y: 1.0469724, z: 0.014503799}
+    m_Value: {x: 303.86847, y: 270.7251, z: -3.2627401}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -1178,9 +1178,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 8.934381
+    m_Target: 336.27377
     speed: 2
-    m_Value: 8.549646
+    m_Value: 336.27377
   m_Ortho:
     m_Target: 1
     speed: 2
