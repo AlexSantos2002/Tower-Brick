@@ -10,7 +10,6 @@ public static class SceneLoader
     {
         string currentScene = SceneManager.GetActiveScene().name;
 
-        // Só adiciona se a cena atual não for igual à última da pilha
         if (sceneHistory.Count == 0 || sceneHistory.Peek() != currentScene)
         {
             sceneHistory.Push(currentScene);
@@ -25,7 +24,6 @@ public static class SceneLoader
         {
             string lastScene = sceneHistory.Pop();
 
-            // 🔥 Limpa a pilha se estamos voltando para o menu principal
             if (lastScene == "Main Menu")
             {
                 ClearHistory();

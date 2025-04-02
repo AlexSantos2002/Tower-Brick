@@ -20,7 +20,7 @@ public class MusicManager : MonoBehaviour
             instance = this;
             DontDestroyOnLoad(gameObject);
             audioSource = GetComponent<AudioSource>();
-            SceneManager.sceneLoaded += OnSceneLoaded; // Escutar mudança de cena
+            SceneManager.sceneLoaded += OnSceneLoaded;
         }
         else
         {
@@ -30,12 +30,11 @@ public class MusicManager : MonoBehaviour
 
     void Start()
     {
-        PlayMenuMusic(); // Começa com a música do menu
+        PlayMenuMusic();
     }
 
     void Update()
     {
-        // Continua tocando a playlist só se estiver no GameScene
         if (
             SceneManager.GetActiveScene().name == gameplaySceneName &&
             !audioSource.isPlaying &&

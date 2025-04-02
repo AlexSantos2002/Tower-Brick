@@ -26,7 +26,6 @@ public class MainMenu : MonoBehaviour
 
     public void QuitGame()
     {
-        // Sem delay porque Application.Quit precisa ser imediato
         Application.Quit();
         Debug.Log("O jogo foi fechado.");
     }

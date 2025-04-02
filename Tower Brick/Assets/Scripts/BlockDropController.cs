@@ -50,23 +50,34 @@ public class BlockDropController : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (((1 << collision.gameObject.layer) & blockLayerMask) != 0 && !hasLanded)
+        if (!isDropped || hasLanded) return;
+
+        if (((1 << collision.gameObject.layer) & blockLayerMask) != 0)
         {
-            hasLanded = true;
-            rb.bodyType = RigidbodyType2D.Kinematic;
-            rb.linearVelocity = Vector2.zero;
-            rb.angularVelocity = 0f;
+            Bounds thisBounds = GetComponent<SpriteRenderer>().bounds;
+            Bounds otherBounds = collision.collider.bounds;
 
-            Debug.Log("Bloco pousado com sucesso.");
+            float overlapX = Mathf.Min(thisBounds.max.x, otherBounds.max.x) - Mathf.Max(thisBounds.min.x, otherBounds.min.x);
+            float thisWidth = thisBounds.size.x;
+            float overlapPercentage = overlapX / thisWidth;
 
-            if (cameraManager != null)
+            if (overlapPercentage >= 0.5f)
             {
-                cameraManager.RegisterBlock(gameObject);
+                hasLanded = true;
+                rb.bodyType = RigidbodyType2D.Kinematic;
+                rb.velocity = Vector2.zero;
+                rb.angularVelocity = 0f;
+
+                transform.rotation = Quaternion.identity;
+
+                Debug.Log("Bloco pousado com sucesso.");
+
+                cameraManager?.RegisterBlock(gameObject);
+                spawner?.SpawnBlockOnCrane();
             }
-
-            if (spawner != null)
+            else
             {
-                spawner.SpawnBlockOnCrane();
+                Debug.Log("Bloco mal pousado, vai cair.");
             }
         }
     }

@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1536
     height: 820.8
   m_ShowMode: 4
-  m_Title: Game
+  m_Title: Project
   m_RootView: {fileID: 6}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -69,8 +69,8 @@ MonoBehaviour:
     y: 0
     width: 474.40002
     height: 764.8
-  m_MinSize: {x: 275, y: 50}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 276, y: 76}
+  m_MaxSize: {x: 4001, y: 4026}
   m_ActualView: {fileID: 13}
   m_Panes:
   - {fileID: 13}
@@ -326,7 +326,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scripts
+    - Assets
     m_Globs: []
     m_ProductIds: 
     m_AnyWithAssetOrigin: 0
@@ -336,16 +336,16 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Scripts
+  - Assets
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\alexa\Documents\GitHub\Tower-Brick\Tower Brick
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 64.400024}
-    m_SelectedIDs: d6b00000
-    m_LastClickedID: 45270
-    m_ExpandedIDs: 00000000faae0000fcae0000feae000000ca9a3b
+    m_SelectedIDs: feae0000
+    m_LastClickedID: 44798
+    m_ExpandedIDs: 00000000feae000000af000002af000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -374,7 +374,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000faae0000fcae0000feae0000
+    m_ExpandedIDs: 00000000feae000000af000002af0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -520,9 +520,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 
+      m_SelectedIDs: 48490000
       m_LastClickedID: 0
-      m_ExpandedIDs: e4e6ffffc4f5ffff0cfbffff4aae000056ae0000
+      m_ExpandedIDs: 0cfbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -1126,9 +1126,9 @@ MonoBehaviour:
   m_AudioPlay: 0
   m_DebugDrawModesUseInteractiveLightBakingData: 0
   m_Position:
-    m_Target: {x: 303.86847, y: 270.7251, z: -3.2627401}
+    m_Target: {x: 370.96808, y: 276.55765, z: -4.090583}
     speed: 2
-    m_Value: {x: 303.86847, y: 270.7251, z: -3.2627401}
+    m_Value: {x: 370.96808, y: 276.55765, z: -4.090583}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -1178,9 +1178,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 336.27377
+    m_Target: 419.0583
     speed: 2
-    m_Value: 336.27377
+    m_Value: 419.0583
   m_Ortho:
     m_Target: 1
     speed: 2
