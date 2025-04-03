@@ -15,7 +15,10 @@ public class GameOverManager : MonoBehaviour
     {
         if (triggered) return;
         triggered = true;
+        //Som do GameOver
+        SFXManager.Instance?.PlayGameOverSound();
 
+        // Cria o visual de Game Over (sprite na cena)
         GameObject gameOverObj = new GameObject("GameOver");
         SpriteRenderer sr = gameOverObj.AddComponent<SpriteRenderer>();
         sr.sprite = gameOverSprite;
@@ -26,7 +29,7 @@ public class GameOverManager : MonoBehaviour
         Vector3 camPos = Camera.main.transform.position;
         gameOverObj.transform.position = new Vector3(camPos.x, camPos.y + 3f, 0f);
 
-
+        // Cria a UI com os botões
         GameObject canvasObj = new GameObject("GameOverCanvas");
         Canvas canvas = canvasObj.AddComponent<Canvas>();
         canvas.renderMode = RenderMode.ScreenSpaceOverlay;

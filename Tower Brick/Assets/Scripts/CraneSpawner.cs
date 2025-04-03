@@ -20,7 +20,7 @@ public class CraneSpawner : MonoBehaviour
     public float speed = 2f;
 
     [Header("Referências")]
-    public GameOverManager gameOverManager; // << novo campo
+    public GameOverManager gameOverManager;
 
     private GameObject crane;
     private GameObject currentBlock;
@@ -92,7 +92,7 @@ public class CraneSpawner : MonoBehaviour
         dropController.blockLayerMask = LayerMask.GetMask("Blocks");
         dropController.spawner = this;
         dropController.cameraManager = Object.FindFirstObjectByType<CameraManager>();
-        dropController.gameOverManager = gameOverManager; // <- nova referência
+        dropController.gameOverManager = gameOverManager;
 
         currentBlock = block;
     }

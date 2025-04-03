@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections.Generic;
 
 public class MusicManager : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class MusicManager : MonoBehaviour
     public AudioClip menuMusic;
     public AudioClip[] gameplayPlaylist;
 
+    private List<AudioClip> shuffledPlaylist = new List<AudioClip>();
     private int currentTrackIndex = 0;
     private string gameplaySceneName = "GameScene";
 
@@ -39,7 +41,7 @@ public class MusicManager : MonoBehaviour
             SceneManager.GetActiveScene().name == gameplaySceneName &&
             !audioSource.isPlaying &&
             audioSource.clip != null &&
-            gameplayPlaylist.Length > 0
+            shuffledPlaylist.Count > 0
         )
         {
             PlayNextTrack();
@@ -70,23 +72,36 @@ public class MusicManager : MonoBehaviour
 
     private void StartGameplayMusic()
     {
-        currentTrackIndex = 0;
+        shuffledPlaylist = new List<AudioClip>(gameplayPlaylist);
+        Shuffle(shuffledPlaylist);
+        currentTrackIndex = Random.Range(0, shuffledPlaylist.Count);
         PlayTrack(currentTrackIndex);
     }
 
     private void PlayTrack(int index)
     {
-        if (gameplayPlaylist.Length == 0) return;
+        if (shuffledPlaylist.Count == 0) return;
 
-        audioSource.clip = gameplayPlaylist[index];
+        audioSource.clip = shuffledPlaylist[index];
         audioSource.loop = false;
         audioSource.Play();
     }
 
     private void PlayNextTrack()
     {
-        currentTrackIndex = (currentTrackIndex + 1) % gameplayPlaylist.Length;
+        currentTrackIndex = (currentTrackIndex + 1) % shuffledPlaylist.Count;
         PlayTrack(currentTrackIndex);
+    }
+
+    private void Shuffle(List<AudioClip> list)
+    {
+        for (int i = 0; i < list.Count; i++)
+        {
+            int randIndex = Random.Range(i, list.Count);
+            AudioClip temp = list[i];
+            list[i] = list[randIndex];
+            list[randIndex] = temp;
+        }
     }
 
     void OnDestroy()

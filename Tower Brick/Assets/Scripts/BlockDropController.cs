@@ -8,7 +8,7 @@ public class BlockDropController : MonoBehaviour
     public LayerMask blockLayerMask;
     public float bottomLimitOffset = 0.5f;
 
-    public GameOverManager gameOverManager; // <-- novo campo
+    public GameOverManager gameOverManager;
 
     private Rigidbody2D rb;
     private bool isDropped = false;
@@ -36,8 +36,7 @@ public class BlockDropController : MonoBehaviour
         {
             Debug.Log("Bloco falhou e foi destruído.");
 
-            gameOverManager?.TriggerGameOver(); // <-- chama a tela de Game Over
-
+            gameOverManager?.TriggerGameOver();
             Destroy(gameObject);
         }
     }
@@ -75,6 +74,8 @@ public class BlockDropController : MonoBehaviour
                 transform.rotation = Quaternion.identity;
 
                 Debug.Log("Bloco pousado com sucesso.");
+
+                SFXManager.Instance?.PlayBlockLandingSound();
 
                 cameraManager?.RegisterBlock(gameObject);
                 spawner?.SpawnBlockOnCrane();
