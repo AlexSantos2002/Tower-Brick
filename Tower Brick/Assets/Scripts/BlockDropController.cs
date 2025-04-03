@@ -34,6 +34,7 @@ public class BlockDropController : MonoBehaviour
         if (isDropped && !hasLanded && transform.position.y < cameraBottomY - bottomLimitOffset)
         {
             Debug.Log("Bloco falhou e foi destruído.");
+            spawner?.TriggerGameOver();
             Destroy(gameObject);
         }
     }
@@ -65,7 +66,7 @@ public class BlockDropController : MonoBehaviour
             {
                 hasLanded = true;
                 rb.bodyType = RigidbodyType2D.Kinematic;
-                rb.velocity = Vector2.zero;
+                rb.linearVelocity = Vector2.zero;
                 rb.angularVelocity = 0f;
 
                 transform.rotation = Quaternion.identity;
