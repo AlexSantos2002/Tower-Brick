@@ -4,10 +4,11 @@ using UnityEngine;
 public class BlockDropController : MonoBehaviour
 {
     public CameraManager cameraManager;
-
-    public float bottomLimitOffset = 0.5f;
-    public LayerMask blockLayerMask;
     public CraneSpawner spawner;
+    public LayerMask blockLayerMask;
+    public float bottomLimitOffset = 0.5f;
+
+    public GameOverManager gameOverManager; // <-- novo campo
 
     private Rigidbody2D rb;
     private bool isDropped = false;
@@ -34,7 +35,9 @@ public class BlockDropController : MonoBehaviour
         if (isDropped && !hasLanded && transform.position.y < cameraBottomY - bottomLimitOffset)
         {
             Debug.Log("Bloco falhou e foi destruído.");
-            spawner?.TriggerGameOver();
+
+            gameOverManager?.TriggerGameOver(); // <-- chama a tela de Game Over
+
             Destroy(gameObject);
         }
     }

@@ -1,6 +1,4 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class CraneSpawner : MonoBehaviour
 {
@@ -21,11 +19,8 @@ public class CraneSpawner : MonoBehaviour
     public float amplitude = 3f;
     public float speed = 2f;
 
-    [Header("Game Over")]
-    public Sprite gameOverSprite;
-    public Sprite playAgainButtonSprite;
-    public Sprite mainMenuButtonSprite;
-    private bool gameOverTriggered = false;
+    [Header("Referências")]
+    public GameOverManager gameOverManager; // << novo campo
 
     private GameObject crane;
     private GameObject currentBlock;
@@ -97,6 +92,7 @@ public class CraneSpawner : MonoBehaviour
         dropController.blockLayerMask = LayerMask.GetMask("Blocks");
         dropController.spawner = this;
         dropController.cameraManager = Object.FindFirstObjectByType<CameraManager>();
+        dropController.gameOverManager = gameOverManager; // <- nova referência
 
         currentBlock = block;
     }
@@ -117,60 +113,5 @@ public class CraneSpawner : MonoBehaviour
     public void UpdateStartYSmooth(float newY)
     {
         startPos = new Vector3(startPos.x, newY, startPos.z);
-    }
-
-    public void TriggerGameOver()
-    {
-        if (gameOverTriggered) return;
-
-        gameOverTriggered = true;
-
-        GameObject gameOverObj = new GameObject("GameOver");
-        SpriteRenderer sr = gameOverObj.AddComponent<SpriteRenderer>();
-        sr.sprite = gameOverSprite;
-        sr.sortingLayerName = "Blocks";
-        sr.sortingOrder = 100;
-        gameOverObj.transform.localScale = new Vector3(0.5f, 0.5f, 1f);
-
-        Vector3 camPos = Camera.main.transform.position;
-        gameOverObj.transform.position = new Vector3(camPos.x, camPos.y + 3f, 0f);
-
-        GameObject canvasObj = new GameObject("GameOverCanvas");
-        Canvas canvas = canvasObj.AddComponent<Canvas>();
-        canvas.renderMode = RenderMode.ScreenSpaceOverlay;
-        canvasObj.AddComponent<CanvasScaler>();
-        canvasObj.AddComponent<GraphicRaycaster>();
-
-        CreateUIButton(playAgainButtonSprite, new Vector2(0, 0), canvas.transform, () =>
-        {
-            SceneManager.LoadScene("GameScene");
-        });
-
-        CreateUIButton(mainMenuButtonSprite, new Vector2(0, -100), canvas.transform, () =>
-        {
-            SceneManager.LoadScene("Main Menu");
-        });
-    }
-
-    private GameObject CreateUIButton(Sprite buttonSprite, Vector2 anchoredPosition, Transform parent, UnityEngine.Events.UnityAction onClickAction)
-    {
-        GameObject buttonObj = new GameObject(buttonSprite.name + "Button");
-        buttonObj.transform.SetParent(parent);
-
-        RectTransform rt = buttonObj.AddComponent<RectTransform>();
-        rt.sizeDelta = new Vector2(200, 100);
-        rt.anchoredPosition = anchoredPosition;
-
-        buttonObj.transform.localScale = new Vector3(1f, 1f, 1f);
-
-        Button button = buttonObj.AddComponent<Button>();
-        Image image = buttonObj.AddComponent<Image>();
-        image.sprite = buttonSprite;
-        image.preserveAspect = true;
-        image.color = Color.white;
-
-        button.onClick.AddListener(onClickAction);
-
-        return buttonObj;
     }
 }

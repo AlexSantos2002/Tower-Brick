@@ -258,6 +258,53 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+--- !u!1 &384459445
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 384459447}
+  - component: {fileID: 384459446}
+  m_Layer: 0
+  m_Name: GameOver
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &384459446
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 384459445}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4986bc74f27fb784aa8e5abbe5c8081c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameOverSprite: {fileID: 21300000, guid: f313635b2d4d072418ebca5a7679a40d, type: 3}
+  playAgainButtonSprite: {fileID: -8887358928168015453, guid: 589f6ab080419f1418c750922e4c8e3c, type: 3}
+  mainMenuButtonSprite: {fileID: -3451699440861859892, guid: 542cdecb2e3febd4cabc2b1f2aa88968, type: 3}
+--- !u!4 &384459447
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 384459445}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 318.45074, y: 235.82976, z: -3.6420112}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &418555246
 GameObject:
   m_ObjectHideFlags: 0
@@ -636,9 +683,7 @@ MonoBehaviour:
   verticalSpacing: 0.3
   amplitude: 3
   speed: 2
-  gameOverSprite: {fileID: 21300000, guid: f313635b2d4d072418ebca5a7679a40d, type: 3}
-  playAgainButtonSprite: {fileID: -8887358928168015453, guid: 589f6ab080419f1418c750922e4c8e3c, type: 3}
-  mainMenuButtonSprite: {fileID: -3451699440861859892, guid: 542cdecb2e3febd4cabc2b1f2aa88968, type: 3}
+  gameOverManager: {fileID: 384459446}
 --- !u!4 &1957888156
 Transform:
   m_ObjectHideFlags: 0
@@ -662,3 +707,4 @@ SceneRoots:
   - {fileID: 418555249}
   - {fileID: 1957888156}
   - {fileID: 1180831843}
+  - {fileID: 384459447}
