@@ -684,6 +684,9 @@ MonoBehaviour:
   amplitude: 3
   speed: 2
   gameOverManager: {fileID: 384459446}
+  perfectSprite: {fileID: 4799618668543402395, guid: 9cf2da86fe7386249829ae0abe38b727, type: 3}
+  goodSprite: {fileID: -8837524479058028452, guid: 00318a742381ee64d92222ea4a130814, type: 3}
+  okSprite: {fileID: 21300000, guid: a119ff0446cb7784483201f5a43a5412, type: 3}
 --- !u!4 &1957888156
 Transform:
   m_ObjectHideFlags: 0

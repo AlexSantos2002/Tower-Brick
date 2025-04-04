@@ -22,6 +22,11 @@ public class CraneSpawner : MonoBehaviour
     [Header("Referências")]
     public GameOverManager gameOverManager;
 
+    [Header("Feedback Sprites")]
+    public Sprite perfectSprite;
+    public Sprite goodSprite;
+    public Sprite okSprite;
+
     private GameObject crane;
     private GameObject currentBlock;
     private Vector3 startPos;
@@ -93,6 +98,10 @@ public class CraneSpawner : MonoBehaviour
         dropController.spawner = this;
         dropController.cameraManager = Object.FindFirstObjectByType<CameraManager>();
         dropController.gameOverManager = gameOverManager;
+
+        dropController.perfectSprite = perfectSprite;
+        dropController.goodSprite = goodSprite;
+        dropController.okSprite = okSprite;
 
         currentBlock = block;
     }

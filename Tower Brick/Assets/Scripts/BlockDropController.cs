@@ -10,6 +10,11 @@ public class BlockDropController : MonoBehaviour
 
     public GameOverManager gameOverManager;
 
+    [Header("Feedback Visual")]
+    public Sprite perfectSprite;
+    public Sprite goodSprite;
+    public Sprite okSprite;
+
     private Rigidbody2D rb;
     private bool isDropped = false;
     private bool hasLanded = false;
@@ -63,6 +68,8 @@ public class BlockDropController : MonoBehaviour
             float thisWidth = thisBounds.size.x;
             float overlapPercentage = overlapX / thisWidth;
 
+            Debug.Log("Overlap %: " + (overlapPercentage * 100f).ToString("F1") + "%");
+
             if (overlapPercentage >= 0.5f)
             {
                 hasLanded = true;
@@ -73,55 +80,42 @@ public class BlockDropController : MonoBehaviour
                 transform.rotation = Quaternion.identity;
 
                 Debug.Log("Bloco pousado com sucesso.");
-
                 SFXManager.Instance?.PlayBlockLandingSound();
 
-                string message = "";
-                Color color = Color.white;
+                Sprite feedbackSprite = null;
 
                 if (overlapPercentage >= 0.9f)
                 {
-                    message = "PERFECT";
-                    color = Color.blue;
+                    feedbackSprite = perfectSprite;
                 }
                 else if (overlapPercentage >= 0.7f)
                 {
-                    message = "Bom";
-                    color = Color.green;
+                    feedbackSprite = goodSprite;
                 }
                 else if (overlapPercentage >= 0.5f)
                 {
-                    message = "Ok!";
-                    color = Color.yellow;
+                    feedbackSprite = okSprite;
                 }
 
-                if (!string.IsNullOrEmpty(message))
-                {
-                    GameObject textObj = new GameObject("LandingFeedbackText");
+                Debug.Log("Selected feedback sprite: " + (feedbackSprite ? feedbackSprite.name : "null"));
 
-                    TextMesh textMesh = textObj.AddComponent<TextMesh>();
-                    textMesh.text = message;
-                    textMesh.color = color;
-                    textMesh.fontSize = 30;
-                    textMesh.characterSize = 0.2f;
-                    textMesh.fontStyle = FontStyle.Bold;
-                    textMesh.anchor = TextAnchor.LowerRight;
-                    textMesh.alignment = TextAlignment.Right;
+                if (feedbackSprite != null)
+                {
+                    GameObject spriteObj = new GameObject("LandingFeedbackSprite");
+                    SpriteRenderer sr = spriteObj.AddComponent<SpriteRenderer>();
+                    sr.sprite = feedbackSprite;
+                    sr.sortingLayerName = "Blocks";
+                    sr.sortingOrder = 200;
 
                     Bounds bounds = GetComponent<SpriteRenderer>().bounds;
-                    float marginX = 0.7f;
+                    float marginX = 0.6f;
                     float marginY = 0.2f;
                     Vector3 offset = new Vector3(bounds.extents.x + marginX, -bounds.extents.y - marginY, -0.1f);
-                    textObj.transform.position = transform.position + offset;
+                    spriteObj.transform.position = transform.position + offset;
 
-                    MeshRenderer renderer = textObj.GetComponent<MeshRenderer>();
-                    if (renderer != null)
-                    {
-                        renderer.sortingLayerName = "Blocks";
-                        renderer.sortingOrder = 200;
-                    }
+                    spriteObj.transform.localScale = Vector3.one * 0.15f;
 
-                    Destroy(textObj, 2f);
+                    Destroy(spriteObj, 2f);
                 }
 
                 cameraManager?.RegisterBlock(gameObject);
