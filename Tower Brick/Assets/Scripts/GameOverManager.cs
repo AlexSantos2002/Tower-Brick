@@ -19,6 +19,13 @@ public class GameOverManager : MonoBehaviour
         // Som do GameOver
         SFXManager.Instance?.PlayGameOverSound();
 
+        // Colapsa o prédio visualmente
+        CameraManager cam = Object.FindFirstObjectByType<CameraManager>();
+        if (cam != null)
+        {
+            cam.TriggerCollapse();
+        }
+
         // Cria o visual de Game Over (sprite na cena)
         GameObject gameOverObj = new GameObject("GameOver");
         SpriteRenderer sr = gameOverObj.AddComponent<SpriteRenderer>();
@@ -39,8 +46,7 @@ public class GameOverManager : MonoBehaviour
 
         CreateUIButton(playAgainButtonSprite, new Vector2(0, 0), canvas.transform, () =>
         {
-            // Reseta o score antes de reiniciar
-            ScoreDisplay.Instance?.ResetScore();
+            ScoreManager.Instance?.ResetScore();
             SceneManager.LoadScene("GameScene");
         });
 

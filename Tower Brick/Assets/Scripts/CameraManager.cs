@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -28,6 +29,8 @@ public class CameraManager : MonoBehaviour
     private bool isMovingUp = false;
     private Vector3 targetCameraPosition;
     private float craneTargetY = 0f;
+
+    private bool collapseTriggered = false;
 
     void Start()
     {
@@ -90,32 +93,64 @@ public class CameraManager : MonoBehaviour
         }
     }
 
+    public void TriggerCollapse()
+    {
+        collapseTriggered = true;
+        StartCoroutine(CollapseSequence());
+    }
+
+    private IEnumerator CollapseSequence()
+    {
+        foreach (GameObject block in placedBlocks)
+        {
+            if (block == null) continue;
+
+            Rigidbody2D rb = block.GetComponent<Rigidbody2D>();
+            if (rb == null)
+                rb = block.AddComponent<Rigidbody2D>();
+
+            rb.bodyType = RigidbodyType2D.Dynamic;
+            rb.gravityScale = 0.5f;
+
+            float torque = Random.Range(-10f, -5f);
+            rb.AddTorque(torque, ForceMode2D.Force);
+
+            float sideForce = Random.Range(-0.5f, -0.2f);
+            rb.linearVelocity = new Vector2(sideForce, rb.linearVelocity.y);
+
+            yield return new WaitForSeconds(0.05f);
+        }
+    }
+
     void Update()
     {
         placedBlocks.RemoveAll(b => b == null || b.transform.position.y < destroyBelowY);
 
-        shakeTimer += Time.deltaTime * shakeFrequency;
-
-        int total = placedBlocks.Count;
-
-        if (total >= 10)
+        if (!collapseTriggered)
         {
-            int tiers = (total - 10) / 10;
-            float shakeIncrease = tiers * 0.05f;
-            currentShakeAmplitude = Mathf.Min(baseShakeAmplitude + shakeIncrease, maxShakeAmplitude);
+            shakeTimer += Time.deltaTime * shakeFrequency;
 
-            for (int i = 0; i < total; i++)
+            int total = placedBlocks.Count;
+
+            if (total >= 10)
             {
-                GameObject block = placedBlocks[i];
-                if (block == null || !originalPositions.ContainsKey(block)) continue;
+                int tiers = (total - 10) / 10;
+                float shakeIncrease = tiers * 0.05f;
+                currentShakeAmplitude = Mathf.Min(baseShakeAmplitude + shakeIncrease, maxShakeAmplitude);
 
-                float relativeIndex = (float)(i + 1) / total;
-                float strength = relativeIndex * currentShakeAmplitude;
+                for (int i = 0; i < total; i++)
+                {
+                    GameObject block = placedBlocks[i];
+                    if (block == null || !originalPositions.ContainsKey(block)) continue;
 
-                Vector3 basePos = originalPositions[block];
-                float offsetX = Mathf.Sin(shakeTimer) * strength;
+                    float relativeIndex = (float)(i + 1) / total;
+                    float strength = relativeIndex * currentShakeAmplitude;
 
-                block.transform.position = new Vector3(basePos.x + offsetX, basePos.y, basePos.z);
+                    Vector3 basePos = originalPositions[block];
+                    float offsetX = Mathf.Sin(shakeTimer) * strength;
+
+                    block.transform.position = new Vector3(basePos.x + offsetX, basePos.y, basePos.z);
+                }
             }
         }
 
