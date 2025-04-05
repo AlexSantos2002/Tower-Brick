@@ -55,30 +55,33 @@ O projeto está sendo desenvolvido com as seguintes tecnologias e ferramentas:
 ### 🔨 Próximas Etapas
 
 #### 🎮 Mecânicas do Jogo:
-- [x] Imlpementar mecanicas **basicas** (movimento da grua, queda e colisão de blocos)
-- [ ] Implementar sistema de **pontuação dinâmica** com base na altura
-- [ ] Adicionar **dificuldade progressiva** (aceleração dos blocos, vento, etc.)
-- [ ] Detecção de **colisão imperfeita** (blocos mal colocados caem)
-- [ ] Sistema de **game over** (prédio desaba)
-- [ ] Reinício do jogo (botão de replay/reset)
+- ✅ Implementar mecânicas **básicas** (movimento da grua, queda e colisão de blocos)  
+- ✅ Implementar sistema de **pontuação dinâmica** com base na altura  
+- ✅ Adicionar **dificuldade progressiva** (aceleração dos blocos, vento, etc.)  
+- ✅ Detecção de **colisão imperfeita** (blocos mal colocados caem)  
+- ⬜ Sistema de **game over** (prédio desaba)  
+- ✅ Reinício do jogo (botão de replay/reset)  
 
 #### 🧠 Feedback e Interface:
-- [ ] Mostrar **pontuação em tempo real** na tela
-- [ ] Mostrar **melhor pontuação (highscore)**
-- [ ] Implementar **feedback visual/sonoro** ao encaixar bloco
-- [ ] Efeitos quando o jogador perde ou acerta perfeitamente
+- ✅ Mostrar **pontuação em tempo real** na tela  
+- ⬜ Mostrar **melhor pontuação (highscore)**  
+- ✅ Implementar **feedback visual/sonoro** ao encaixar bloco  
+- ⬜ Efeitos quando o jogador perde ou acerta perfeitamente  
 
 #### 📱 Interface e Menus:
-- [x] Finalizar menu de **Opções**
-- [x] Finalizar **Menu Principal**
-- [ ] Criar tela de **Game Over**
-- [ ] Criar tela de **Pausa**
+- ✅ Finalizar menu de **Opções**  
+- ✅ Finalizar **Menu Principal**  
+- ✅ Criar tela de **Game Over**  
+- ⬜ Criar tela de **Pausa**  
+- ⬜ Criar função de **Aumentar/Diminuir música**  
+- ⬜ Criar tela de **Aumentar/Diminuir SFX**  
 
 #### 🌐 Outras Funcionalidades:
-- [ ] Guardar **recordes localmente**
-- [ ] Adicionar **música de fundo e efeitos sonoros**
-- [ ] Preparar build para **WebGL** ou **Mobile**
-- [ ] Otimizações de performance
+- ⬜ Guardar **recordes localmente**  
+- ✅ Adicionar **música de fundo e efeitos sonoros**  
+- ⬜ Preparar build para **WebGL** ou **Mobile**  
+- ⬜ Otimizações de performance  
+
 
 ### 🔨 Mais funcionalidades serão adicionadas quando estas estiverem implementadas
 
