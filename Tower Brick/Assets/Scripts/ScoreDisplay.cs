@@ -4,8 +4,8 @@ using UnityEngine;
 public class ScoreDisplay : MonoBehaviour
 {
     [Header("Font Sprites")]
-    public Sprite[] numberSprites; // index = 0 to 9
-    public Sprite[] letterSprites; // S, C, O, R, E, :
+    public Sprite[] numberSprites;
+    public Sprite[] letterSprites;
 
     [Header("Layout Settings")]
     public float characterSpacing = 0.15f;
@@ -22,7 +22,7 @@ public class ScoreDisplay : MonoBehaviour
         {
             GameObject parent = new GameObject("ScoreUI");
             uiParent = parent.transform;
-            uiParent.SetParent(Camera.main.transform); // 🔥 Score segue a câmera
+            uiParent.SetParent(Camera.main.transform);
         }
 
         RenderLabel();
@@ -46,7 +46,7 @@ public class ScoreDisplay : MonoBehaviour
 
     void RenderScore(int score)
     {
-        string scoreStr = score.ToString("D3"); // sempre 3 dígitos
+        string scoreStr = score.ToString("D3");
 
         float xOffset = label.Length * characterSpacing;
 
@@ -65,7 +65,7 @@ public class ScoreDisplay : MonoBehaviour
     {
         GameObject obj = new GameObject(sprite.name);
         obj.transform.SetParent(uiParent);
-        obj.transform.localPosition = localPos; // como está parented à câmera, usamos localPosition
+        obj.transform.localPosition = localPos;
 
         SpriteRenderer sr = obj.AddComponent<SpriteRenderer>();
         sr.sprite = sprite;
@@ -89,7 +89,6 @@ public class ScoreDisplay : MonoBehaviour
     Sprite GetLetterSprite(char c)
     {
         c = char.ToUpper(c);
-        // Mapeia os índices conforme ordem esperada
         switch (c)
         {
             case 'S': return letterSprites.Length > 0 ? letterSprites[0] : null;

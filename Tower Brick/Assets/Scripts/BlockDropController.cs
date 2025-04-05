@@ -83,18 +83,22 @@ public class BlockDropController : MonoBehaviour
                 SFXManager.Instance?.PlayBlockLandingSound();
 
                 Sprite feedbackSprite = null;
+                string resultType = "";
 
                 if (overlapPercentage >= 0.9f)
                 {
                     feedbackSprite = perfectSprite;
+                    resultType = "PERFECT";
                 }
                 else if (overlapPercentage >= 0.7f)
                 {
                     feedbackSprite = goodSprite;
+                    resultType = "GOOD";
                 }
                 else if (overlapPercentage >= 0.5f)
                 {
                     feedbackSprite = okSprite;
+                    resultType = "OK";
                 }
 
                 Debug.Log("Selected feedback sprite: " + (feedbackSprite ? feedbackSprite.name : "null"));
@@ -116,6 +120,11 @@ public class BlockDropController : MonoBehaviour
                     spriteObj.transform.localScale = Vector3.one * 0.15f;
 
                     Destroy(spriteObj, 2f);
+                }
+
+                if (!string.IsNullOrEmpty(resultType))
+                {
+                    ScoreManager.Instance?.AddScore(resultType);
                 }
 
                 cameraManager?.RegisterBlock(gameObject);
