@@ -14,7 +14,17 @@ public class CameraManager : MonoBehaviour
     public Transform mainCamera;
     public Transform crane;
 
+    [Header("Tremor do Prédio")]
+    public float baseShakeAmplitude = 0.25f;
+    public float maxShakeAmplitude = 1.5f;
+    public float shakeFrequency = 3f;
+
+    private float shakeTimer = 0f;
+    private float currentShakeAmplitude = 0f;
+
     private List<GameObject> placedBlocks = new List<GameObject>();
+    private Dictionary<GameObject, Vector3> originalPositions = new Dictionary<GameObject, Vector3>();
+
     private bool isMovingUp = false;
     private Vector3 targetCameraPosition;
     private float craneTargetY = 0f;
@@ -31,7 +41,10 @@ public class CameraManager : MonoBehaviour
     public void RegisterBlock(GameObject block)
     {
         if (!placedBlocks.Contains(block))
+        {
             placedBlocks.Add(block);
+            originalPositions[block] = block.transform.position;
+        }
 
         float blockTopY = block.transform.position.y + block.GetComponent<SpriteRenderer>().bounds.size.y / 2f;
         float camTopY = mainCamera.position.y + Camera.main.orthographicSize;
@@ -71,6 +84,7 @@ public class CameraManager : MonoBehaviour
         if (blockTopY < cameraBottomY)
         {
             placedBlocks.Remove(lowest);
+            originalPositions.Remove(lowest);
             Destroy(lowest);
             Debug.Log("Bloco mais baixo removido.");
         }
@@ -79,6 +93,31 @@ public class CameraManager : MonoBehaviour
     void Update()
     {
         placedBlocks.RemoveAll(b => b == null || b.transform.position.y < destroyBelowY);
+
+        shakeTimer += Time.deltaTime * shakeFrequency;
+
+        int total = placedBlocks.Count;
+
+        if (total >= 10)
+        {
+            int tiers = (total - 10) / 10;
+            float shakeIncrease = tiers * 0.05f;
+            currentShakeAmplitude = Mathf.Min(baseShakeAmplitude + shakeIncrease, maxShakeAmplitude);
+
+            for (int i = 0; i < total; i++)
+            {
+                GameObject block = placedBlocks[i];
+                if (block == null || !originalPositions.ContainsKey(block)) continue;
+
+                float relativeIndex = (float)(i + 1) / total;
+                float strength = relativeIndex * currentShakeAmplitude;
+
+                Vector3 basePos = originalPositions[block];
+                float offsetX = Mathf.Sin(shakeTimer) * strength;
+
+                block.transform.position = new Vector3(basePos.x + offsetX, basePos.y, basePos.z);
+            }
+        }
 
         if (isMovingUp)
         {

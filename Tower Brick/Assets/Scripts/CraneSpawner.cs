@@ -35,7 +35,7 @@ public class CraneSpawner : MonoBehaviour
     private float initialSpeed;
     private const int blocksPerIncrease = 10;
     private const float speedIncreaseStep = 0.1f;
-    private const float maxSpeedMultiplier = 1.5f;
+    private const float maxSpeedMultiplier = 2f;
 
     private float movementTimer = 0f;
 
