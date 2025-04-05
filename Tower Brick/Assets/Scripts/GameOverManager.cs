@@ -15,7 +15,8 @@ public class GameOverManager : MonoBehaviour
     {
         if (triggered) return;
         triggered = true;
-        //Som do GameOver
+
+        // Som do GameOver
         SFXManager.Instance?.PlayGameOverSound();
 
         // Cria o visual de Game Over (sprite na cena)
@@ -38,6 +39,8 @@ public class GameOverManager : MonoBehaviour
 
         CreateUIButton(playAgainButtonSprite, new Vector2(0, 0), canvas.transform, () =>
         {
+            // Reseta o score antes de reiniciar
+            ScoreDisplay.Instance?.ResetScore();
             SceneManager.LoadScene("GameScene");
         });
 

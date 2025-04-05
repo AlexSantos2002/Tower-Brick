@@ -29,14 +29,14 @@ public class ScoreDisplay : MonoBehaviour
         }
 
         Instance = this;
+
+        GameObject existing = GameObject.Find("ScoreUI");
+        if (existing != null && existing != gameObject)
+            Destroy(existing);
     }
 
     void Start()
     {
-        GameObject existing = GameObject.Find("ScoreUI");
-        if (existing != null)
-            Destroy(existing);
-
         GameObject parent = new GameObject("ScoreUI");
         uiParent = parent.transform;
         uiParent.SetParent(Camera.main.transform);
@@ -79,6 +79,11 @@ public class ScoreDisplay : MonoBehaviour
                 characterObjects.Add(CreateCharSprite(sprite, new Vector2(xOffset, 0)));
             xOffset += spacing;
         }
+    }
+
+    public void ResetScore()
+    {
+        SetScore(0);
     }
 
     private GameObject CreateCharSprite(Sprite sprite, Vector2 localPos)
