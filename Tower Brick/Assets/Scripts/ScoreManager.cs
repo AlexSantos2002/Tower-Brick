@@ -1,79 +1,83 @@
 using UnityEngine;
+using System.Collections;
 
 public class ScoreManager : MonoBehaviour
 {
-    public static ScoreManager Instance;
+    public static ScoreManager Instance { get; private set; }
 
     private int score = 0;
-    private string lastType = "";
-    private int streak = 0;
-
     private ScoreDisplay scoreDisplay;
+
+    private int perfectStreak = 0;
+    private int goodStreak = 0;
 
     void Awake()
     {
-        if (Instance == null)
+        if (Instance != null && Instance != this)
         {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else Destroy(gameObject);
-    }
-
-    void Start()
-    {
-        scoreDisplay = FindObjectOfType<ScoreDisplay>();
-        UpdateScoreUI();
-    }
-
-    public void AddScore(string resultType)
-    {
-        int basePoints = 0;
-        float multiplier = 1f;
-
-        switch (resultType)
-        {
-            case "PERFECT":
-                basePoints = 20;
-                multiplier = 1.2f;
-                break;
-            case "GOOD":
-                basePoints = 10;
-                multiplier = 1.1f;
-                break;
-            case "OK":
-                basePoints = 5;
-                multiplier = 1f;
-                break;
+            Destroy(gameObject);
+            return;
         }
 
-        if (resultType == lastType && (resultType == "PERFECT" || resultType == "GOOD"))
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+    }
+
+    IEnumerator Start()
+    {
+        yield return null;
+
+        scoreDisplay = ScoreDisplay.Instance;
+
+        if (scoreDisplay == null)
         {
-            streak++;
+            Debug.LogWarning("ScoreManager: ScoreDisplay.Instance não encontrado!");
         }
         else
-        {
-            streak = 1;
-            lastType = resultType;
-        }
-
-        float finalMultiplier = Mathf.Pow(multiplier, streak - 1);
-        int pointsGained = Mathf.RoundToInt(basePoints * finalMultiplier);
-
-        score += pointsGained;
-
-        Debug.Log($"[{resultType}] Streak: {streak}, +{pointsGained} pontos (x{finalMultiplier:F2})");
-
-        UpdateScoreUI();
-    }
-
-    private void UpdateScoreUI()
-    {
-        if (scoreDisplay != null)
         {
             scoreDisplay.SetScore(score);
         }
     }
 
-    public int GetScore() => score;
+    public void AddScore(string result)
+    {
+        float multiplier = 1f;
+        int basePoints = 0;
+
+        switch (result)
+        {
+            case "PERFECT":
+                basePoints = 20;
+                perfectStreak++;
+                goodStreak = 0;
+                multiplier = Mathf.Pow(1.2f, perfectStreak - 1);
+                break;
+
+            case "GOOD":
+                basePoints = 10;
+                goodStreak++;
+                perfectStreak = 0;
+                multiplier = Mathf.Pow(1.1f, goodStreak - 1);
+                break;
+
+            case "OK":
+                basePoints = 5;
+                perfectStreak = 0;
+                goodStreak = 0;
+                multiplier = 1f;
+                break;
+        }
+
+        int addedPoints = Mathf.RoundToInt(basePoints * multiplier);
+        score += addedPoints;
+
+        Debug.Log($"[SCORE] Resultado: {result}, Pontos ganhos: {addedPoints}, Total: {score}");
+
+        scoreDisplay?.SetScore(score);
+    }
+
+    public int GetScore()
+    {
+        return score;
+    }
 }

@@ -3,90 +3,106 @@ using UnityEngine;
 
 public class ScoreDisplay : MonoBehaviour
 {
+    public static ScoreDisplay Instance { get; private set; }
+
     [Header("Font Sprites")]
     public Sprite[] numberSprites;
     public Sprite[] letterSprites;
 
     [Header("Layout Settings")]
     public float characterSpacing = 0.15f;
-    public Vector2 startPosition = new Vector2(-5f, 3.2f);
-    public Transform uiParent;
+    public Vector2 screenOffset = new Vector2(0.5f, -0.5f);
 
-    private int currentScore = 0;
+    private Transform uiParent;
+    private int currentScore = -1;
     private List<GameObject> characterObjects = new List<GameObject>();
     private readonly string label = "SCORE:";
 
-    void Start()
+    private const float characterScale = 0.5f;
+
+    void Awake()
     {
-        if (uiParent == null)
+        if (Instance != null && Instance != this)
         {
-            GameObject parent = new GameObject("ScoreUI");
-            uiParent = parent.transform;
-            uiParent.SetParent(Camera.main.transform);
+            Destroy(gameObject);
+            return;
         }
 
-        RenderLabel();
-        RenderScore(currentScore);
+        Instance = this;
     }
 
-    void RenderLabel()
+    void Start()
     {
+        GameObject existing = GameObject.Find("ScoreUI");
+        if (existing != null)
+            Destroy(existing);
+
+        GameObject parent = new GameObject("ScoreUI");
+        uiParent = parent.transform;
+        uiParent.SetParent(Camera.main.transform);
+        uiParent.localPosition = Vector3.zero;
+
+        SetScore(0);
+    }
+
+    void Update()
+    {
+        Vector3 topLeft = Camera.main.ViewportToWorldPoint(new Vector3(0f, 1f, 10f));
+        uiParent.position = topLeft + (Vector3)screenOffset;
+    }
+
+    public void SetScore(int newScore)
+    {
+        if (newScore == currentScore) return;
+
+        currentScore = newScore;
+
+        foreach (GameObject go in characterObjects)
+            Destroy(go);
+        characterObjects.Clear();
+
         float xOffset = 0f;
+        float spacing = characterSpacing / characterScale;
 
         foreach (char c in label)
         {
             Sprite sprite = GetLetterSprite(c);
-            if (sprite == null) continue;
-
-            GameObject go = CreateCharSprite(sprite, startPosition + new Vector2(xOffset, 0));
-            characterObjects.Add(go);
-            xOffset += characterSpacing;
+            if (sprite != null)
+                characterObjects.Add(CreateCharSprite(sprite, new Vector2(xOffset, 0)));
+            xOffset += spacing;
         }
-    }
 
-    void RenderScore(int score)
-    {
-        string scoreStr = score.ToString("D3");
-
-        float xOffset = label.Length * characterSpacing;
-
-        foreach (char c in scoreStr)
+        foreach (char c in newScore.ToString("D3"))
         {
             Sprite sprite = GetNumberSprite(c);
-            if (sprite == null) continue;
-
-            GameObject go = CreateCharSprite(sprite, startPosition + new Vector2(xOffset, 0));
-            characterObjects.Add(go);
-            xOffset += characterSpacing;
+            if (sprite != null)
+                characterObjects.Add(CreateCharSprite(sprite, new Vector2(xOffset, 0)));
+            xOffset += spacing;
         }
     }
 
-    GameObject CreateCharSprite(Sprite sprite, Vector2 localPos)
+    private GameObject CreateCharSprite(Sprite sprite, Vector2 localPos)
     {
         GameObject obj = new GameObject(sprite.name);
         obj.transform.SetParent(uiParent);
         obj.transform.localPosition = localPos;
 
-        SpriteRenderer sr = obj.AddComponent<SpriteRenderer>();
+        var sr = obj.AddComponent<SpriteRenderer>();
         sr.sprite = sprite;
         sr.sortingLayerName = "Blocks";
         sr.sortingOrder = 999;
 
-        obj.transform.localScale = Vector3.one * 2.5f;
-
+        obj.transform.localScale = Vector3.one * characterScale;
         return obj;
     }
 
-    Sprite GetNumberSprite(char c)
+    private Sprite GetNumberSprite(char c)
     {
         int index = c - '0';
-        if (index >= 0 && index <= 9 && index < numberSprites.Length)
-            return numberSprites[index];
-
-        return null;
+        return (index >= 0 && index < numberSprites.Length) ? numberSprites[index] : null;
     }
 
-    Sprite GetLetterSprite(char c)
+    private Sprite GetLetterSprite(char c)
     {
         c = char.ToUpper(c);
         switch (c)
@@ -99,16 +115,5 @@ public class ScoreDisplay : MonoBehaviour
             case ':': return letterSprites.Length > 5 ? letterSprites[5] : null;
         }
         return null;
-    }
-
-    public void SetScore(int newScore)
-    {
-        foreach (GameObject go in characterObjects)
-            Destroy(go);
-        characterObjects.Clear();
-
-        RenderLabel();
-        RenderScore(newScore);
-        currentScore = newScore;
     }
 }
