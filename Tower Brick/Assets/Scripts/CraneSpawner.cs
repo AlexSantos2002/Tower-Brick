@@ -30,6 +30,14 @@ public class CraneSpawner : MonoBehaviour
     private GameObject crane;
     private GameObject currentBlock;
     private Vector3 startPos;
+    
+    private int blocksPlaced = 0;
+    private float initialSpeed;
+    private const int blocksPerIncrease = 10;
+    private const float speedIncreaseStep = 0.1f;
+    private const float maxSpeedMultiplier = 1.5f;
+
+    private float movementTimer = 0f;
 
     void Start()
     {
@@ -50,6 +58,8 @@ public class CraneSpawner : MonoBehaviour
         crane.transform.position = new Vector3(0, craneY, -1f);
         startPos = crane.transform.position;
 
+        initialSpeed = speed;
+
         SpawnBlockOnCrane();
 
         CameraManager manager = Object.FindFirstObjectByType<CameraManager>();
@@ -63,7 +73,8 @@ public class CraneSpawner : MonoBehaviour
     {
         if (crane == null) return;
 
-        float offsetX = Mathf.Sin(Time.time * speed) * amplitude;
+        movementTimer += Time.deltaTime * speed;
+        float offsetX = Mathf.Sin(movementTimer) * amplitude;
         crane.transform.position = new Vector3(startPos.x + offsetX, startPos.y, startPos.z);
 
         if (currentBlock != null && currentBlock.transform.parent == crane.transform)
@@ -104,6 +115,11 @@ public class CraneSpawner : MonoBehaviour
         dropController.okSprite = okSprite;
 
         currentBlock = block;
+
+        blocksPlaced++;
+        int steps = blocksPlaced / blocksPerIncrease;
+        float newSpeedMultiplier = Mathf.Min(1f + steps * speedIncreaseStep, maxSpeedMultiplier);
+        speed = initialSpeed * newSpeedMultiplier;
     }
 
     float GetOffsetToBlock()
