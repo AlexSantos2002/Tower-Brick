@@ -5,10 +5,13 @@ public class BackgroundSpawner : MonoBehaviour
 {
     public static BackgroundSpawner Instance;
 
-    [Header("Sprites")]
+    [Header("Sprites - GameScene")]
     public Sprite backgroundSprite;
-    public Sprite[] skySprites;           // Todos os céus, usa os últimos 5
-    public Sprite loopSkySprite;          // Céu que se repete
+    public Sprite[] skySprites;
+    public Sprite loopSkySprite;
+
+    [Header("Sprite - Menu e outras cenas")]
+    public Sprite menuBackgroundSprite;
 
     [Header("Configuração")]
     public int loopCount = 10;
@@ -39,12 +42,12 @@ public class BackgroundSpawner : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        RegenerateBackground();
+        RegenerateBackground(scene.name);
     }
 
-    public void RegenerateBackground()
+    public void RegenerateBackground(string sceneName)
     {
-        // Apaga todos os backgrounds anteriores
+        // Remove fundo anterior
         if (backgroundParent != null)
         {
             Destroy(backgroundParent.gameObject);
@@ -53,24 +56,36 @@ public class BackgroundSpawner : MonoBehaviour
         backgroundParent = new GameObject("BackgroundContainer").transform;
         backgroundParent.SetParent(transform);
 
-        if (backgroundSprite == null || loopSkySprite == null)
+        if (sceneName == "GameScene")
         {
-            Debug.LogError("Sprites obrigatórios não estão atribuídos.");
-            return;
+            if (backgroundSprite == null || loopSkySprite == null)
+            {
+                Debug.LogError("Sprites obrigatórios para GameScene não estão atribuídos.");
+                return;
+            }
+
+            float currentY = CreateSpriteInstance("Background", backgroundSprite, 0);
+
+            int startIndex = Mathf.Max(1, skySprites.Length - 5);
+            for (int i = startIndex; i < skySprites.Length; i++)
+            {
+                currentY = CreateSpriteInstance($"Sky_{i}", skySprites[i], currentY);
+            }
+
+            for (int i = 0; i < loopCount; i++)
+            {
+                currentY = CreateSpriteInstance($"SkyLoop_{i}", loopSkySprite, currentY);
+            }
         }
-
-        float currentY = CreateSpriteInstance("Background", backgroundSprite, 0);
-
-        // Usa os 5 últimos elementos (pulando o primeiro)
-        int startIndex = Mathf.Max(1, skySprites.Length - 5);
-        for (int i = startIndex; i < skySprites.Length; i++)
+        else
         {
-            currentY = CreateSpriteInstance($"Sky_{i}", skySprites[i], currentY);
-        }
+            if (menuBackgroundSprite == null)
+            {
+                Debug.LogError("Sprite de fundo para menus não está atribuído.");
+                return;
+            }
 
-        for (int i = 0; i < loopCount; i++)
-        {
-            currentY = CreateSpriteInstance($"SkyLoop_{i}", loopSkySprite, currentY);
+            CreateSpriteInstance("MenuBackground", menuBackgroundSprite, 0);
         }
     }
 
@@ -97,7 +112,6 @@ public class BackgroundSpawner : MonoBehaviour
             : startY + spriteHeightWorldUnits / 2f;
 
         go.transform.position = new Vector3(0, y, position.z);
-
         return y + spriteHeightWorldUnits / 2f;
     }
 }
