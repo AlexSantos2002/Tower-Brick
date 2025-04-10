@@ -59,7 +59,7 @@ O projeto está sendo desenvolvido com as seguintes tecnologias e ferramentas:
 - ✅ Implementar sistema de **pontuação dinâmica** com base na altura  
 - ✅ Adicionar **dificuldade progressiva** (aceleração dos blocos, vento, etc.)  
 - ✅ Detecção de **colisão imperfeita** (blocos mal colocados caem)  
-- ⬜ Sistema de **game over** (prédio desaba)  
+- ✅ Sistema de **game over** (prédio desaba)  
 - ✅ Reinício do jogo (botão de replay/reset)  
 
 #### 🧠 Feedback e Interface:
