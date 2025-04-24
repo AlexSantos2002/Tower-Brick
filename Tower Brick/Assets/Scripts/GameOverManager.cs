@@ -19,6 +19,10 @@ public class GameOverManager : MonoBehaviour
         // Som do GameOver
         SFXManager.Instance?.PlayGameOverSound();
 
+        // Registra e mostra os scores no console
+        int finalScore = ScoreManager.Instance != null ? ScoreManager.Instance.GetScore() : 0;
+        HighScoreManager.Instance?.RegisterScore(finalScore);
+
         // Colapsa o prédio visualmente
         CameraManager cam = Object.FindFirstObjectByType<CameraManager>();
         if (cam != null)
