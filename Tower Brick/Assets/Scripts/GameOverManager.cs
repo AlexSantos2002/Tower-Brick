@@ -8,6 +8,13 @@ public class GameOverManager : MonoBehaviour
     public Sprite gameOverSprite;
     public Sprite playAgainButtonSprite;
     public Sprite mainMenuButtonSprite;
+    public Sprite highscoreButtonSprite;
+
+    [Header("Button Settings")]
+    public Vector2 buttonSize = new Vector2(200, 100);
+    public Vector2 highscoreButtonSize = new Vector2(150, 80);
+    public float spacing = 90f;
+    public float topButtonY = 0f;
 
     private bool triggered = false;
 
@@ -16,21 +23,17 @@ public class GameOverManager : MonoBehaviour
         if (triggered) return;
         triggered = true;
 
-        // Som do GameOver
         SFXManager.Instance?.PlayGameOverSound();
 
-        // Registra e mostra os scores no console
         int finalScore = ScoreManager.Instance != null ? ScoreManager.Instance.GetScore() : 0;
         HighScoreManager.Instance?.RegisterScore(finalScore);
 
-        // Colapsa o prédio visualmente
         CameraManager cam = Object.FindFirstObjectByType<CameraManager>();
         if (cam != null)
         {
             cam.TriggerCollapse();
         }
 
-        // Cria o visual de Game Over (sprite na cena)
         GameObject gameOverObj = new GameObject("GameOver");
         SpriteRenderer sr = gameOverObj.AddComponent<SpriteRenderer>();
         sr.sprite = gameOverSprite;
@@ -41,35 +44,44 @@ public class GameOverManager : MonoBehaviour
         Vector3 camPos = Camera.main.transform.position;
         gameOverObj.transform.position = new Vector3(camPos.x, camPos.y + 3f, 0f);
 
-        // Cria a UI com os botões
         GameObject canvasObj = new GameObject("GameOverCanvas");
         Canvas canvas = canvasObj.AddComponent<Canvas>();
         canvas.renderMode = RenderMode.ScreenSpaceOverlay;
         canvasObj.AddComponent<CanvasScaler>();
         canvasObj.AddComponent<GraphicRaycaster>();
 
-        CreateUIButton(playAgainButtonSprite, new Vector2(0, 0), canvas.transform, () =>
+        float currentY = topButtonY;
+
+        CreateUIButton(playAgainButtonSprite, new Vector2(0, currentY), canvas.transform, buttonSize, () =>
         {
             ScoreManager.Instance?.ResetScore();
             SceneManager.LoadScene("GameScene");
         });
 
-        CreateUIButton(mainMenuButtonSprite, new Vector2(0, -100), canvas.transform, () =>
+        currentY -= spacing;
+
+        CreateUIButton(mainMenuButtonSprite, new Vector2(0, currentY), canvas.transform, buttonSize, () =>
         {
             SceneManager.LoadScene("Main Menu");
         });
+
+        currentY -= spacing;
+
+        CreateUIButton(highscoreButtonSprite, new Vector2(0, currentY), canvas.transform, highscoreButtonSize, () =>
+        {
+            SceneManager.LoadScene("HighscoreScene");
+        });
     }
 
-    private GameObject CreateUIButton(Sprite sprite, Vector2 anchoredPos, Transform parent, UnityEngine.Events.UnityAction onClick)
+    private GameObject CreateUIButton(Sprite sprite, Vector2 anchoredPos, Transform parent, Vector2 sizeDelta, UnityEngine.Events.UnityAction onClick)
     {
         GameObject btnObj = new GameObject(sprite.name + "Button");
         btnObj.transform.SetParent(parent);
 
         RectTransform rt = btnObj.AddComponent<RectTransform>();
-        rt.sizeDelta = new Vector2(200, 100);
+        rt.sizeDelta = sizeDelta;
         rt.anchoredPosition = anchoredPos;
-
-        btnObj.transform.localScale = Vector3.one;
+        rt.localScale = Vector3.one;
 
         Image img = btnObj.AddComponent<Image>();
         img.sprite = sprite;

@@ -290,6 +290,7 @@ MonoBehaviour:
   gameOverSprite: {fileID: 21300000, guid: f313635b2d4d072418ebca5a7679a40d, type: 3}
   playAgainButtonSprite: {fileID: -8887358928168015453, guid: 589f6ab080419f1418c750922e4c8e3c, type: 3}
   mainMenuButtonSprite: {fileID: -3451699440861859892, guid: 542cdecb2e3febd4cabc2b1f2aa88968, type: 3}
+  highscoreButtonSprite: {fileID: -5327425431815287758, guid: 9d628e92f63c4af44b27c942e718fdbc, type: 3}
 --- !u!4 &384459447
 Transform:
   m_ObjectHideFlags: 0
