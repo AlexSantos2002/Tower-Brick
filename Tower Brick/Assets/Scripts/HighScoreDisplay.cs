@@ -5,18 +5,19 @@ using UnityEngine;
 public class HighScoreDisplay : MonoBehaviour
 {
     [Header("Font Sprites")]
-    public Sprite[] numberSprites; 
-    public Sprite[] rankSprites;   
-    public Sprite colonSprite;     
+    public Sprite[] numberSprites;
+    public Sprite[] rankSprites;
+    public Sprite colonSprite;
 
     [Header("Layout Settings")]
-    public float verticalSpacing = 0.7f;
-    public float baseCharacterSpacing = 0.3f;
-    public Vector2 startOffset = new Vector2(0f, -0.5f);
+    public float lineHeight = 0.7f;        // altura normal da linha (tamanho visual)
+    public float linePadding = 0.1f;        // novo: padding extra para baixo entre linhas
+    public float baseCharacterSpacing = 0.5f;
+    public Vector2 startOffset = new Vector2(0f, 0f);
 
     private Transform uiParent;
 
-    private const float numberScale = 0.5f; 
+    private const float numberScale = 0.5f;
     private const float rankScale = numberScale * 0.3f;
 
     private IEnumerator Start()
@@ -34,8 +35,14 @@ public class HighScoreDisplay : MonoBehaviour
         uiParent.SetParent(Camera.main.transform);
         uiParent.localPosition = Vector3.zero;
 
+        if (Camera.main == null)
+        {
+            Debug.LogError("[HighScoreDisplay] Nenhuma Camera.main encontrada!");
+            return;
+        }
+
         Vector3 topCenter = Camera.main.ViewportToWorldPoint(new Vector3(0.5f, 1f, 10f));
-        uiParent.position = new Vector3(topCenter.x + startOffset.x, topCenter.y + startOffset.y, 0f);
+        uiParent.position = new Vector3(topCenter.x + startOffset.x, topCenter.y + startOffset.y - 1, 0f);
 
         List<int> scores = HighScoreManager.Instance.GetScores();
 
@@ -53,7 +60,8 @@ public class HighScoreDisplay : MonoBehaviour
 
     private void CreateScoreLine(int rankIndex, int score)
     {
-        float yOffset = -rankIndex * verticalSpacing;
+        // Agora: altura real da linha + padding extra
+        float yOffset = -(rankIndex * (lineHeight + linePadding));
 
         List<(Sprite sprite, float scale)> elements = new List<(Sprite, float)>();
 
