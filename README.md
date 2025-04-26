@@ -64,7 +64,7 @@ O projeto está sendo desenvolvido com as seguintes tecnologias e ferramentas:
 
 #### 🧠 Feedback e Interface:
 - ✅ Mostrar **pontuação em tempo real** na tela  
-- ⬜ Mostrar **melhor pontuação (highscore)**  
+- ✅ Mostrar **melhor pontuação (highscore)**  
 - ✅ Implementar **feedback visual/sonoro** ao encaixar bloco  
 - ⬜ Efeitos quando o jogador perde ou acerta perfeitamente  
 
@@ -77,7 +77,7 @@ O projeto está sendo desenvolvido com as seguintes tecnologias e ferramentas:
 - ⬜ Criar tela de **Aumentar/Diminuir SFX**  
 
 #### 🌐 Outras Funcionalidades:
-- ⬜ Guardar **recordes localmente**  
+- ✅ Guardar **recordes localmente**  
 - ✅ Adicionar **música de fundo e efeitos sonoros**  
 - ⬜ Preparar build para **WebGL** ou **Mobile**  
 - ⬜ Otimizações de performance  
