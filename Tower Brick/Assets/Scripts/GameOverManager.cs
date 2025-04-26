@@ -69,7 +69,7 @@ public class GameOverManager : MonoBehaviour
 
         CreateUIButton(highscoreButtonSprite, new Vector2(0, currentY), canvas.transform, highscoreButtonSize, () =>
         {
-            SceneManager.LoadScene("HighscoreScene");
+            SceneManager.LoadScene("HighScore");
         });
     }
 
