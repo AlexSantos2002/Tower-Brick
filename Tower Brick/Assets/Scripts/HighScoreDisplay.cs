@@ -10,10 +10,9 @@ public class HighScoreDisplay : MonoBehaviour
     public Sprite colonSprite;
 
     [Header("Layout Settings")]
-    public float lineHeight = 0.7f;
-    public float linePadding = 0.1f;
-    public float baseCharacterSpacing = 0.5f;
+    public float characterSpacing = 0.3f;
     public Vector2 startOffset = new Vector2(0f, 0f);
+    public float lineSpacing = 0.6f;
 
     [Header("Background Settings")]
     public Sprite backgroundSprite;
@@ -23,7 +22,7 @@ public class HighScoreDisplay : MonoBehaviour
     private Transform uiParent;
     private Transform backgroundParent;
 
-    private const float numberScale = 0.5f;
+    private const float numberScale = 0.4f;
     private const float rankScale = numberScale * 0.3f;
 
     private IEnumerator Start()
@@ -55,8 +54,6 @@ public class HighScoreDisplay : MonoBehaviour
         Vector3 topCenter = Camera.main.ViewportToWorldPoint(new Vector3(0.5f, 1f, 10f));
         uiParent.position = new Vector3(topCenter.x + startOffset.x, topCenter.y + startOffset.y - 2f, 0f);
 
-        // A placa será criada já posicionada corretamente no método CreateBackgroundSprite!
-
         List<int> scores = HighScoreManager.Instance.GetScores();
 
         if (scores.Count == 0)
@@ -73,7 +70,7 @@ public class HighScoreDisplay : MonoBehaviour
 
     private void CreateScoreLine(int rankIndex, int score)
     {
-        float yOffset = -(rankIndex * (lineHeight + linePadding));
+        float yOffset = -(rankIndex * lineSpacing);
 
         List<(Sprite sprite, float scale)> elements = new List<(Sprite, float)>();
 
@@ -90,11 +87,10 @@ public class HighScoreDisplay : MonoBehaviour
                 elements.Add((numberSprite, numberScale));
         }
 
-        float totalWidth = (elements.Count - 1) * baseCharacterSpacing;
+        float totalWidth = (elements.Count - 1) * characterSpacing;
         float startX = -totalWidth / 2f;
         float xOffset = startX;
 
-        // 🔥 Cria o background apenas na primeira linha
         if (rankIndex == 0 && backgroundSprite != null)
         {
             CreateBackgroundSprite(new Vector2(0f, yOffset), Vector2.one * backgroundScaleMultiplier);
@@ -103,7 +99,7 @@ public class HighScoreDisplay : MonoBehaviour
         foreach (var (sprite, scale) in elements)
         {
             CreateCharSprite(sprite, new Vector2(xOffset, yOffset), scale);
-            xOffset += baseCharacterSpacing;
+            xOffset += characterSpacing;
         }
     }
 
@@ -119,7 +115,6 @@ public class HighScoreDisplay : MonoBehaviour
 
         bg.transform.localScale = new Vector3(scale.x, scale.y, 1f);
 
-        // Corrige para centralizar o sprite real no centro da câmera
         if (sr.sprite != null)
         {
             Vector2 spriteSize = sr.sprite.bounds.size;
