@@ -463,9 +463,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseSprite: {fileID: -5634970776186950781, guid: c2b086833fed294438bae9269774c04e, type: 3}
-  secondarySprite: {fileID: 21300000, guid: 54d37bfa2631fcd499851353e2aa143f, type: 3}
   scaleMultiplier: 1
-  secondaryScale: 0.8
 --- !u!4 &500103534
 Transform:
   m_ObjectHideFlags: 0
