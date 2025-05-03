@@ -30,7 +30,7 @@ public class CraneSpawner : MonoBehaviour
     private GameObject crane;
     private GameObject currentBlock;
     private Vector3 startPos;
-
+    
     private int blocksPlaced = 0;
     private float initialSpeed;
     private const int blocksPerIncrease = 10;
@@ -71,9 +71,6 @@ public class CraneSpawner : MonoBehaviour
 
     void Update()
     {
-        // Não faz nada se o jogo estiver pausado
-        if (Time.timeScale == 0f) return;
-
         if (crane == null) return;
 
         movementTimer += Time.deltaTime * speed;

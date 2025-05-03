@@ -291,10 +291,6 @@ MonoBehaviour:
   playAgainButtonSprite: {fileID: -8887358928168015453, guid: 589f6ab080419f1418c750922e4c8e3c, type: 3}
   mainMenuButtonSprite: {fileID: -3451699440861859892, guid: 542cdecb2e3febd4cabc2b1f2aa88968, type: 3}
   highscoreButtonSprite: {fileID: -5327425431815287758, guid: 9d628e92f63c4af44b27c942e718fdbc, type: 3}
-  buttonSize: {x: 200, y: 100}
-  highscoreButtonSize: {x: 150, y: 80}
-  spacing: 90
-  topButtonY: 0
 --- !u!4 &384459447
 Transform:
   m_ObjectHideFlags: 0
@@ -428,52 +424,6 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 333.36057, y: 299.08838, z: -3.859398}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &500103532
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 500103534}
-  - component: {fileID: 500103533}
-  m_Layer: 0
-  m_Name: PauseManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &500103533
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 500103532}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70ab6199c15277f489c61b29c6c0f7cc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pauseSprite: {fileID: -5634970776186950781, guid: c2b086833fed294438bae9269774c04e, type: 3}
-  scaleMultiplier: 1
---- !u!4 &500103534
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 500103532}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.8665974, y: 1.2811682, z: -0.01627793}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1029,4 +979,3 @@ SceneRoots:
   - {fileID: 450212167}
   - {fileID: 1612212114}
   - {fileID: 1621736462}
-  - {fileID: 500103534}
