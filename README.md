@@ -72,7 +72,7 @@ O projeto está sendo desenvolvido com as seguintes tecnologias e ferramentas:
 - ✅ Finalizar menu de **Opções**  
 - ✅ Finalizar **Menu Principal**  
 - ✅ Criar tela de **Game Over**  
-- ✅ Criar tela de **Pausa**  
+- ⬜ Criar tela de **Pausa**  
 - ⬜ Criar função de **Aumentar/Diminuir música**  
 - ⬜ Criar tela de **Aumentar/Diminuir SFX**  
 
